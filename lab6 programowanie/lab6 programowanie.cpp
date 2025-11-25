@@ -15,10 +15,9 @@ void usun();
 float TEMP1[10];
 float TEMP2[10];
 int INDEKS = 0;
-void przelicz();
+float przelicz(float temp);
 void zapisz(float temp1, float temp2);
 void wyswietl();
-void menu();
 int main()
 {
 	/*
@@ -48,25 +47,21 @@ void usun() {
 			cout << tab[i] << endl;
 		}
 		*/
-	menu();
-	switch:	
-	przelicz();
-	wyswietl();
-}
-void przelicz() {
 	float temp1;
-	float temp2;
 	cout << "Podaj temperature do przeliczenia: ";
 	cin >> temp1;
-	temp2 = temp1 + 273.15;
-	cout << temp1 << "C = " << temp2 << "F\n";
-	INDEKS++;
+	float temp2 = przelicz(temp1);
 	zapisz(temp1, temp2);
+	wyswietl();
+}
+float przelicz(float temp) {
+	return temp + 273.15;
 }
 void zapisz(float temp1, float temp2) {
-	if (INDEKS-1 < 10) {
-		TEMP1[INDEKS-1] = temp1;
-		TEMP2[INDEKS-1] = temp2;
+	if (INDEKS < 10) {
+		TEMP1[INDEKS] = temp1;
+		TEMP2[INDEKS] = temp2;
+		INDEKS++;
 	}
 	else {
 		cout << "Koniec miejsca w tablicy, przeliczenie nie zostanie zapisane.\n";
@@ -74,12 +69,7 @@ void zapisz(float temp1, float temp2) {
 	
 }
 void wyswietl() {
-	for (int i = 0; i <= INDEKS; i++) {
-		cout << "<" << INDEKS << ">" << TEMP1[INDEKS] << " -> " << TEMP2[INDEKS];
+	for (int i = 0; i < INDEKS; i++) {
+		cout << "<" << i+1 << "> " << TEMP1[i] << "C -> " << TEMP2[i] << "K\n";
 	}
-}
-void menu() {
-	cout << "Wybierz opcje:";
-	cout << "1. Przelicz C->K";
-	cout << "2. Wyswietl historie";
 }
